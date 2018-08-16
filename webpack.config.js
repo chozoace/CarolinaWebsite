@@ -27,7 +27,7 @@ module.exports = {
       },
       {
         test: /\.jpg/,
-        loader: 'file-loader'
+        loader: 'file-loader?name=/public/icons/[name].[ext]'
       },
       {
         test : /\.jsx?/,
