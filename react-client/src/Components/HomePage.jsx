@@ -19,7 +19,9 @@ import {
   } from 'semantic-ui-react'
 
 const HomepageHeading = ({ mobile }) => (
+
     <Container text>
+    {/*<Image src={bannerImage} fluid/>*/}
     <Header
       as='h1'
       content='Imagine-a-Company'
@@ -52,12 +54,16 @@ HomepageHeading.propTypes = {
     mobile: PropTypes.bool,
 }
 
-class DesktopContainer extends Component {
+class DesktopContainer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {};
-        this.hideFixedMenu = () => this.setState({ fixed: false })
-        this.showFixedMenu = () => this.setState({ fixed: true })
+    }
+    hideFixedMenu(){
+        this.setState({ fixed: false });
+    }
+    showFixedMenu() {
+         this.setState({ fixed: true });
     }
 
     render() {
@@ -68,8 +74,8 @@ class DesktopContainer extends Component {
             <Responsive minWidth={Responsive.onlyTablet.minWidth}>
                 <Visibility
                     once={false}
-                    onBottomPassed={this.showFixedMenu}
-                    onBottomPassedReverse={this.hideFixedMenu}
+                    onBottomPassed={() => this.showFixedMenu()}
+                    onBottomPassedReverse={() => this.hideFixedMenu()}
                 >
                     <Segment
                         inverted
@@ -114,25 +120,25 @@ DesktopContainer.propTypes = {
     children: PropTypes.node,
 }
 
-class MobileContainer extends Component {
+class MobileContainer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {};
     }
 
     handlePusherClick() {
-        const { sidebarOpened } = this.state
+        const { sidebarOpened } = this.state;
 
-        if(sidebarOpened) this.setState({sidebarOpened: false})
+        if(sidebarOpened) this.setState({sidebarOpened: false});
     }
 
     handleToggle() {
-        this.setState({sidebarOpened: !this.state.sidebarOpened})
+        this.setState({sidebarOpened: !this.state.sidebarOpened});
     } 
 
     render() {
-        const { children } = this.props
-        const { sidebarOpened } = this.state
+        const { children } = this.props;
+        const { sidebarOpened } = this.state;
 
         return (
             <Responsive maxWidth={Responsive.onlyMobile.maxWidth}>
@@ -149,7 +155,7 @@ class MobileContainer extends Component {
                     </Sidebar>
                     <Sidebar.Pusher
                         dimmed = {sidebarOpened}
-                        onClick={() => handlePusherClick}
+                        onClick={() => this.handlePusherClick()}
                         style={{minHeight: '100vh'}}
                     >
                         <Segment
@@ -160,7 +166,7 @@ class MobileContainer extends Component {
                         >
                             <Container>
                                 <Menu inverted pointing secondary size='large'>
-                                    <Menu.Item onClick={() => handleToggle}>
+                                    <Menu.Item onClick={() => this.handleToggle()}>
                                         <Icon name='sidebar'/>
                                     </Menu.Item>
                                     <Menu.Item position='right'>
